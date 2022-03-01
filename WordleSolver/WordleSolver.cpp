@@ -2,19 +2,102 @@
 //
 
 #include <iostream>
+#include <numeric>
 
 #include "../WorldleLib/Game.h"
 
 using std::cin;
 
-int main()
-{
-	Game game = Game();
-	game.set_debug_mode( true );
-	game.set_solutions();
-	game.set_universe();
-	game.init();
+Game game = Game();
 
+std::ostream& operator<< (std::ostream& out, map<string, vector<string >> m)
+{
+	for ( auto line : m )
+	{
+		out << line.first << ":" << endl;
+		for (string s : line.second)
+		{
+			out << "    " << s << std::endl;
+		}
+	}
+
+	return out;
+}
+
+std::ostream& operator<< (std::ostream& out, map<string, std::pair<int, string>> m)
+{
+	for (auto line : m)
+	{
+		out << line.first << ": " << line.second.first << " solutions, best guess = " << line.second.second << endl;
+	}
+
+	return out;
+}
+
+void Calculate()
+{
+	vector<string> _hints;
+	// maps hints to the number of possible solutions and the guess you should use next
+	map<string, std::pair<int, string>> _hint_map;
+	// maps second-round guesses to all hints that would make this guess advisable
+	map <string, vector<string>> _guess_map;
+
+	for (char a : Game::VALIDHINTS)
+	{
+		string hint(5, a);
+		for (char b : Game::VALIDHINTS)
+		{
+			hint[1] = b;
+			for (char c : Game::VALIDHINTS)
+			{
+				hint[2] = c;
+				for (char d : Game::VALIDHINTS)
+				{
+					hint[3] = d;
+					for (char e : Game::VALIDHINTS)
+					{
+						hint[4] = e;
+						_hints.push_back(hint);
+					}
+				}
+			}
+		}
+	}
+
+
+	vector<int> solution_indices(Game::get_pSolutions()->size());
+	std::iota(solution_indices.begin(), solution_indices.end(), 0);
+	Round round(solution_indices);
+
+	for (string const& _hint : _hints)
+	{
+		vector<int> _new_solutions = round.apply_hint("soare", _hint);
+		int _number_of_solutions = static_cast<int>(_new_solutions.size());
+		if (_number_of_solutions > 0)
+		{
+			Round _round2(_new_solutions);
+			string _guess = _round2.find_best_guess()->get_guess();
+
+			cout << "Best guess for hint " + _hint << " is " << _guess << std::endl;
+			_hint_map[_hint] = std::pair<int, string>(_number_of_solutions, _guess);
+			_guess_map[_guess].push_back(_hint);
+		}
+	}
+
+	std::ofstream _hint_file;
+	_hint_file.open("Hints.txt");
+	_hint_file << _hint_map;
+	_hint_file.close();
+
+	std::ofstream _guess_file;
+	_guess_file.open("Guesses.txt");
+	_guess_file << _guess_map;
+	_guess_file.close();
+
+}
+
+void Play()
+{
 	int _number_of_solutions = 0;
 	while (_number_of_solutions != 1)
 	{
@@ -23,6 +106,10 @@ int main()
 		{
 			cout << "Enter guess or B to calculate best guess ";
 			cin >> _guess;
+			if (_guess == "Q")
+			{
+				exit( 0 );
+			}
 			if ( _guess == "B" )
 			{
 				auto _g = game.find_best_guess();
@@ -40,6 +127,10 @@ int main()
 		{
 			cout << "Enter hint ";
 			cin >> _hint;
+			if (_hint == "Q")
+			{
+				exit(0);
+			}
 			if ( !Game::validate_hint( _hint ) )
 			{
 				_hint = "";
@@ -50,9 +141,40 @@ int main()
 		cout << "Number of solutions = " << _number_of_solutions << std::endl;
 	}
 
-	cout << "Solution = " << game.get_solution();
-	string s;
-	std::cin >> s;
+	cout << "Solution = " << game.get_solution() << std::endl;
+
+
+}
+
+int main()
+{
+
+	game.set_solutions();
+	game.set_universe();
+	game.init();
+
+	while (true)
+	{
+		string line;
+		cout << "Enter P to play a game or C to calculate best second guess ";
+		cin >> line;
+		if (line == "P")
+		{
+			game.set_debug_mode(true);
+			Play();
+			break;
+		}
+		if (line == "C")
+		{
+			game.set_debug_mode(false);
+			Calculate();
+			break;
+		}
+	}
+
+	string line;
+	cout << "Press any key to quit ";
+	cin >> line;
 
 }
 

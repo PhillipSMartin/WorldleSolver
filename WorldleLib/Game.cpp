@@ -6,7 +6,7 @@
 
 #include "Game.h"
 
-std::unique_ptr<Logger> Game::pLogger_ = std::make_unique<Logger>();
+std::shared_ptr<Logger> Game::pLogger_ = std::make_shared<Logger>();
 std::shared_ptr<vector<string>> Game::pSolutions_ = std::make_shared<vector<string>>();
 std::shared_ptr<vector<string>> Game::pUniverse_ = std::make_shared<vector<string>>();
 size_t Game::word_length_ = 0;
@@ -87,9 +87,9 @@ bool Game::init()
 
 	number_of_solutions_ = static_cast<int>(pSolutions_->size());
 	rounds_.clear();
-	vector<int> solution_indices( pSolutions_->size() );
-	std::iota( solution_indices.begin(), solution_indices.end(), 0 );
-	rounds_.push_back( Round( solution_indices ) );
+	vector<int> _solution_indices( pSolutions_->size() );
+	std::iota( _solution_indices.begin(), _solution_indices.end(), 0 );
+	rounds_.push_back( Round( _solution_indices ) );
 
 	initialized_ = true;
 	return true;

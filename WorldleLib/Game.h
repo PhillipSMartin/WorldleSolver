@@ -3,6 +3,7 @@
 #include <memory.h>
 #include <vector>
 
+#include "FileLogger.h"
 #include "Guess.h"
 #include "Logger.h"
 #include "Round.h"
@@ -12,12 +13,11 @@ using std::vector;
 class Game
 {
 private:
-	static std::unique_ptr<Logger> pLogger_;
+	static std::shared_ptr<Logger> pLogger_;
 	static std::shared_ptr<vector<string>> pSolutions_;
 	static std::shared_ptr<vector<string>> pUniverse_;
 	static size_t word_length_;
-    static string VALIDHINTS;
-
+ 
 	static vector<string> ReadWordFile( string const& fileName );
 
 	vector<Round> rounds_ = vector<Round>();
@@ -26,13 +26,15 @@ private:
 	bool initialized_ = false;
 
 public:
+	static string VALIDHINTS;
+
 	Game() = default;
-	Game(Logger& logger) : Game() { pLogger_ = std::make_unique<Logger>( logger ); }
 
 	static void info( string const& msg ) { pLogger_->info( msg ); }
 	static void debug( string const& msg ) { pLogger_->debug( msg ); }
 	static void error( string const& msg, exception const& e ) { pLogger_->error( msg, e ); }
 	static void set_debug_mode(bool value) { pLogger_->set_debug_mode(value); }
+	static void set_logger(std::shared_ptr<Logger> const& logger) { pLogger_ = logger; };
 
 	static void set_solutions( vector<string> const& solutions = ReadWordFile( "Wordle solutions.txt" ) );
 	static std::shared_ptr<vector<string>> get_pSolutions() { return pSolutions_; }

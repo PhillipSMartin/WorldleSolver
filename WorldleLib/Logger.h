@@ -2,6 +2,7 @@
 
 #include <exception>
 #include <iostream>
+#include <memory>
 #include <string>
 
 using std::cout;
@@ -11,15 +12,19 @@ using std::string;
 
 class Logger
 {
-private:
+protected:
 	bool debug_mode_ = false;
+	std::ostream* pOstream_;
 
 public:
-	bool const get_debug_mode()  { return debug_mode_; }
+	Logger() { pOstream_ = &cout; }
+	virtual ~Logger() {}
+
+	bool get_debug_mode()  const { return debug_mode_; }
 	void set_debug_mode( const bool value ) { debug_mode_ = value; }
 
-	virtual void const info( string const& msg ) { cout << msg << endl;  }
-	virtual void const debug( string const& msg ) { if (  debug_mode_  ) info( msg ); }
-	virtual void const error( string const& msg, exception const& ex ) { info( msg + "=>" + ex.what() ); }
+	virtual void info( string const& msg ) const { *pOstream_ << msg << endl;  }
+	virtual void debug( string const& msg ) const { if (  debug_mode_  ) info( msg ); }
+	virtual void error( string const& msg, exception const& ex ) const { info( msg + "=>" + ex.what() ); }
 };
 

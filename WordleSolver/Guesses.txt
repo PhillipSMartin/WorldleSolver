@@ -1,0 +1,223 @@
+acorn:
+    BYYGB
+arise:
+    YBYYG
+azure:
+    BBYGG
+bachs:
+    YBGYB
+balmy:
+    BGYYB
+baron:
+    BYYYB
+belch:
+    YBGBG
+bench:
+    YGGBB
+bundt:
+    BYYBG
+butch:
+    GBBYB
+canal:
+    BBYBY
+carol:
+    BBYYG
+chant:
+    GBGGG
+    GYBGB
+    GYBGG
+cigar:
+    BYYGY
+    BYYGG
+    BYGBB
+    BYGBG
+    BYGYB
+    BYGGB
+    BGYGB
+    BGGYB
+    YBBGB
+    YBGYG
+    YYBYY
+    YYBYG
+    YYYYB
+    YYYYG
+    YYGBB
+    YGGYB
+    GBGYB
+    GYBYB
+    GYYYB
+    GGBBG
+    GGBGB
+    GGGBB
+clink:
+    BBGBB
+    BYBBG
+clint:
+    BBBBB
+    BBYBB
+    BBGYB
+    BYBBB
+clipt:
+    GBBBY
+cloot:
+    BYYBB
+    GYBBB
+could:
+    BGBGB
+count:
+    YBBYG
+cruft:
+    YBBYB
+culty:
+    BGBBB
+cutin:
+    BYBYB
+cyton:
+    BGBYB
+dault:
+    GBYBB
+death:
+    BBGYY
+delta:
+    BBYGY
+demon:
+    BYBBY
+denet:
+    BBBBY
+depth:
+    BBGBY
+dhuti:
+    BBGGB
+digit:
+    YYBYB
+direr:
+    BBBYY
+ditch:
+    BBGYG
+feted:
+    BBBGY
+fitch:
+    BBBGB
+fling:
+    BBGGG
+fungi:
+    BGBYG
+gault:
+    BBYBG
+glint:
+    BBBYB
+glitz:
+    BBGBG
+gloom:
+    YYBBB
+guild:
+    BGBBG
+guilt:
+    BBBBG
+gulch:
+    YBGBB
+hatch:
+    YYBBG
+hists:
+    YBBBB
+hoard:
+    BGGGB
+humic:
+    BBYGB
+inert:
+    YBBBG
+jumby:
+    YGBBB
+kempt:
+    GBGGB
+knelt:
+    GBYBY
+    GYBBG
+lathy:
+    BBGGY
+light:
+    GBBGB
+liman:
+    BGYBB
+linty:
+    YBYBB
+loath:
+    BGGBB
+lofty:
+    YBGBY
+loser:
+    YGBYY
+lusty:
+    GGBBB
+marsh:
+    YBYYB
+mason:
+    YYYBB
+meynt:
+    BGBBY
+newie:
+    GBBYY
+ocean:
+    BYYBY
+ombre:
+    BYBGG
+onset:
+    YYBBY
+pilum:
+    YGBBG
+pithy:
+    BYBGB
+pling:
+    GBBBG
+poesy:
+    YGBBY
+pownd:
+    BYBYG
+pudic:
+    BBBYG
+putty:
+    GBYYB
+radar:
+    BBYYB
+retro:
+    BYBGY
+rewth:
+    BGBYY
+richt:
+    YBBYY
+salon:
+    GYYBB
+saute:
+    GBYBG
+shire:
+    GBBGG
+solar:
+    GGYYB
+sower:
+    GGBYY
+spree:
+    GBBYG
+stern:
+    GBBGY
+talar:
+    BBYYY
+teugh:
+    YBBBY
+there:
+    BBBGG
+thilk:
+    GBBBB
+    GBGBB
+    GBGBG
+thump:
+    YBYBG
+trued:
+    BYBYY
+tweed:
+    YBYBY
+whelp:
+    GBYYY
+worse:
+    YGBYG
+worst:
+    YGBYB

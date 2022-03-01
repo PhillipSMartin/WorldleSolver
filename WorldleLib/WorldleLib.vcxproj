@@ -151,6 +151,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="FileLogger.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Guess.h" />
@@ -160,6 +161,7 @@
     <ClInclude Include="Round.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="FileLogger.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Guess.cpp" />
     <ClCompile Include="Hint.cpp" />
