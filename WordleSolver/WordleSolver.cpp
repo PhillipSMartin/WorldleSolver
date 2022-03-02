@@ -5,28 +5,15 @@
 #include <numeric>
 
 #include "../WorldleLib/Game.h"
+#include <algorithm>
 
 using std::cin;
 
 Game game = Game();
 
-std::ostream& operator<< (std::ostream& out, map<string, vector<string >> m)
+std::ostream& operator<< (std::ostream& out, vector<std::pair<string, std::pair<int, string>>> v)
 {
-	for ( auto line : m )
-	{
-		out << line.first << ":" << endl;
-		for (string s : line.second)
-		{
-			out << "    " << s << std::endl;
-		}
-	}
-
-	return out;
-}
-
-std::ostream& operator<< (std::ostream& out, map<string, std::pair<int, string>> m)
-{
-	for (auto line : m)
+	for (auto line : v)
 	{
 		out << line.first << ": " << line.second.first << " solutions, best guess = " << line.second.second << endl;
 	}
@@ -39,8 +26,6 @@ void Calculate()
 	vector<string> _hints;
 	// maps hints to the number of possible solutions and the guess you should use next
 	map<string, std::pair<int, string>> _hint_map;
-	// maps second-round guesses to all hints that would make this guess advisable
-	map <string, vector<string>> _guess_map;
 
 	for (char a : Game::VALIDHINTS)
 	{
@@ -75,24 +60,38 @@ void Calculate()
 		int _number_of_solutions = static_cast<int>(_new_solutions.size());
 		if (_number_of_solutions > 0)
 		{
-			Round _round2(_new_solutions);
-			string _guess = _round2.find_best_guess()->get_guess();
+			string _guess;
+			if (_number_of_solutions == 1)
+			{
+				_guess = game.get_solution( _new_solutions[0] );
+			}
+			else
+			{
+				Round _round2(_new_solutions);
+				_guess = _round2.find_best_guess()->get_guess();
+			}
 
 			cout << "Best guess for hint " + _hint << " is " << _guess << std::endl;
 			_hint_map[_hint] = std::pair<int, string>(_number_of_solutions, _guess);
-			_guess_map[_guess].push_back(_hint);
 		}
 	}
 
+	vector <std::pair<string, std::pair<int, string>>> _hint_vector;
+	for (auto item : _hint_map)
+	{
+		_hint_vector.push_back(item);
+	}
+
+	std::sort(_hint_vector.begin(), _hint_vector.end(), [](std::pair<string, std::pair<int, string>> const& a, std::pair<string, std::pair<int, string>> const& b)
+		{
+			return a.second.first > b.second.first;
+		});
+
 	std::ofstream _hint_file;
 	_hint_file.open("Hints.txt");
-	_hint_file << _hint_map;
+	_hint_file << _hint_vector;
 	_hint_file.close();
 
-	std::ofstream _guess_file;
-	_guess_file.open("Guesses.txt");
-	_guess_file << _guess_map;
-	_guess_file.close();
 
 }
 

@@ -50,7 +50,7 @@ void Game::set_solutions( vector<string> const& solutions )
 {
 	pSolutions_->insert( pSolutions_->end(), solutions.begin(), solutions.end() );
 	pUniverse_->insert( pUniverse_->end(), solutions.begin(), solutions.end() );
-	word_length_ = pSolutions_->at( 0 ).length();
+	word_length_ = get_solution( 0 ).length();
 }
 
 void Game::set_universe( vector<string> const& universe )
@@ -121,7 +121,7 @@ int Game::play( const string& guess, const string& hint )
 		number_of_solutions_ = _number_of_solutions;
 		if (_number_of_solutions == 1)
 		{
-			solution_ = pSolutions_->at(new_solutions[0]);
+			solution_ = get_solution(new_solutions[0]);
 		}
 	}
 	else

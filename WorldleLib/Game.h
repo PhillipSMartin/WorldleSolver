@@ -46,6 +46,7 @@ public:
 
 	static bool validate_guess( string const& guess );
 	static bool validate_hint( string const& hint );
+	static string get_solution(int n) { return pSolutions_->at(n); }
 
 	// Prepare to play
 	// Ensures solution and universe vectors are set
@@ -66,5 +67,6 @@ public:
 
 	int get_number_of_solutions() const { return number_of_solutions_;  }
 	string get_solution() const { return solution_; }
+	
 };
 
