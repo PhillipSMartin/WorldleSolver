@@ -25,14 +25,30 @@ std::shared_ptr<Guess> Round::find_best_guess() const
 	std::shared_ptr<Guess> _best_guess = nullptr;
 	for (string& word : *Game::get_pUniverse())
 	{
+		double n;
 		Guess g = Guess(word, pSolution_indices_);
-		double n = _best_guess ? _best_guess->get_score() : -1;
-		if ( ( _best_guess ? _best_guess->get_score() : -1.0 ) < g.get_score() )
+		if (_best_guess == nullptr)
 		{
 			_best_guess = std::make_shared<Guess>(g);
-			Game::debug( "Best guess  = " + word + " entropy = " + std::to_string( g.get_entropy() ) + " score = " + std::to_string( g.get_score() ) );
+			n = _best_guess->get_score();
+			Game::debug("Best guess  = " + word + " entropy = " + std::to_string(g.get_entropy()) + " score = " + std::to_string(g.get_score()));
+		}
+		else if ((_best_guess->get_score() > g.get_score()) || ((!_best_guess->get_is_possible()) && g.get_is_possible() && _best_guess->get_score() == g.get_score()))
+		{
+			_best_guess = std::make_shared<Guess>(g);
+			Game::debug("Best guess  = " + word + " entropy = " + std::to_string(g.get_entropy()) + " score = " + std::to_string(g.get_score()));
 		}
 	}
 
 	return _best_guess;
+};
+std::shared_ptr<std::vector<string>> Round::getPossibleSolutions() const
+{
+	std::vector<string> _solutions(pSolution_indices_->size());
+	auto _pSolutions = std::make_shared< std::vector<string>>(_solutions);
+	std::transform(pSolution_indices_->begin(), pSolution_indices_->end(), _pSolutions->begin(), [](int n)
+		{
+			return Game::get_pSolutions()->at(n);
+		});
+	return _pSolutions;
 }

@@ -15,6 +15,7 @@ private:
 	double entropy_;
 	double score_;
 	double number_of_solutions_;
+	bool is_possible_ = false;
 	map<string, int> _hint_counts = map<string, int>();
 
 	double ComputeEntropy() const;
@@ -27,6 +28,7 @@ public:
 	double get_entropy() const { return entropy_; }
 	double get_score() const { return score_; }
 	string get_guess() const { return word_; }
+	bool get_is_possible() const { return is_possible_; }
 
 	// for a given guess and solution, returns the hint 
 	static string ComputeHint( string const& guess, string const& solution );

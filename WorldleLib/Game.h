@@ -67,6 +67,7 @@ public:
 
 	int get_number_of_solutions() const { return number_of_solutions_;  }
 	string get_solution() const { return solution_; }
+	std::shared_ptr<std::vector<string>> getPossibleSolutions() const { return rounds_.back().getPossibleSolutions(); }
 	
 };
 

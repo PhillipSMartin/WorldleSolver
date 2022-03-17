@@ -51,6 +51,7 @@ Guess::Guess(string const& guess, std::shared_ptr<vector<int>> const& pSolution_
 		_hint_counts[ComputeHint(guess, Game::get_pSolutions()->at(index))]++;
 	}
 
+	is_possible_ = _hint_counts.count(string(Game::get_word_length(), 'G'));
 	entropy_ = ComputeEntropy();
 	score_ = ComputeScore();
 }
@@ -72,12 +73,12 @@ double Guess::ComputeEntropy() const
 
 double Guess::ComputeScore() const
 {
-	double bonusFactor = 1.0;
-	if ((number_of_solutions_ > 0) && _hint_counts.count(string(Game::get_word_length(), 'G')))
+	double _score = 1 + number_of_solutions_ / pow(2, entropy_);
+	if (is_possible_)
 	{
-		return entropy_ * pow(2.0, 1.0 / number_of_solutions_);
+		_score = std::min(_score, (number_of_solutions_ + 1) / 2);
 	}
 
-	return entropy_;
+	return _score;
 }
 

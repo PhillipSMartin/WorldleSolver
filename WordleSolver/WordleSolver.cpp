@@ -11,14 +11,26 @@ using std::cin;
 
 Game game = Game();
 
-std::ostream& operator<< (std::ostream& out, vector<std::pair<string, std::pair<int, string>>> v)
+std::ostream& operator<< (std::ostream& os, vector<std::pair<string, std::pair<int, string>>> v)
 {
 	for (auto line : v)
 	{
-		out << line.first << ": " << line.second.first << " solutions, best guess = " << line.second.second << endl;
+		os << line.first << ": " << line.second.first << " solutions, best guess = " << line.second.second << endl;
 	}
 
-	return out;
+	return os;
+}
+
+std::ostream& operator<<(std::ostream& os, const vector<string>& v)
+{
+	std::cout << "[";
+	std::for_each(v.begin(), v.end(), [](const string& item)
+		{
+			std::cout << item << "," << std::endl;
+		});
+	std::cout << "]" << std::endl;
+
+	return os;
 }
 
 void Calculate()
@@ -103,17 +115,23 @@ void Play()
 		string _guess;
 		while ( _guess == "" )
 		{
-			cout << "Enter guess or B to calculate best guess ";
+			cout << "Enter guess, B to calculate best guess, or S to print possible solutions ";
 			cin >> _guess;
 			if (_guess == "Q")
 			{
 				exit( 0 );
 			}
+			if (_guess == "S")
+			{
+				_guess = "";
+				cout << "Possible solutions:" << std::endl << *game.getPossibleSolutions();
+				continue;
+			}
 			if ( _guess == "B" )
 			{
 				auto _g = game.find_best_guess();
 				_guess = _g->get_guess();
-				cout << "Guessing " << _guess << " entropy = " << _g->get_entropy() << std::endl;
+				cout << "Guessing " << _guess << " expectation = " << _g->get_score() << " guesses" << std::endl;
 			}
 			if ( !Game::validate_guess( _guess ) )
 			{
@@ -154,9 +172,9 @@ int main()
 
 	while (true)
 	{
-		string line;
-		cout << "Enter P to play a game or C to calculate best second guess ";
-		cin >> line;
+		string line = "P";
+		//cout << "Enter P to play a game or C to calculate best second guess ";
+		//cin >> line;
 		if (line == "P")
 		{
 			game.set_debug_mode(true);
