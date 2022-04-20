@@ -132,10 +132,15 @@ void Play()
 				auto _g = game.find_best_guess();
 				_guess = _g->get_guess();
 				cout << "Guessing " << _guess << " expectation = " << _g->get_score() << " guesses" << std::endl;
+				continue;
 			}
 			if ( !Game::validate_guess( _guess ) )
 			{
 				_guess = "";
+			}
+			else
+			{
+				cout << "Guessing " << _guess << " entropy = " << game.evaluate_guess(_guess) << std::endl;
 			}
 		}
 
@@ -165,31 +170,17 @@ void Play()
 
 int main()
 {
-
+	string line;
 	game.set_solutions();
 	game.set_universe();
-	game.init();
 
-	while (true)
-	{
-		string line = "P";
-		//cout << "Enter P to play a game or C to calculate best second guess ";
-		//cin >> line;
-		if (line == "P")
-		{
-			game.set_debug_mode(true);
-			Play();
-			break;
-		}
-		if (line == "C")
-		{
-			game.set_debug_mode(false);
-			Calculate();
-			break;
-		}
-	}
+	cout << "Enter previous solution: ";
+	cin >> line;
+	game.init(line);
 
-	string line;
+	game.set_debug_mode(true);
+	Play();
+
 	cout << "Press any key to quit ";
 	cin >> line;
 

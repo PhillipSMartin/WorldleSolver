@@ -52,7 +52,7 @@ public:
 	// Ensures solution and universe vectors are set
 	// Initializes first round
 	// Returns true if ready to play
-	bool init();
+	bool init(string const last_solution = "");
 
 	// Enter a guess and hint for current round
 	// Returns number of remaining solutions
@@ -64,6 +64,7 @@ public:
 	// Finds the best guess for current round
 	// Returns the best guess ( or nullptr on an error )
 	std::shared_ptr<Guess> find_best_guess() const;
+	double evaluate_guess(string const word) const;
 
 	int get_number_of_solutions() const { return number_of_solutions_;  }
 	string get_solution() const { return solution_; }

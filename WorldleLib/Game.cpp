@@ -3,6 +3,7 @@
 #include <algorithm>
 #include <fstream>
 #include <numeric>
+#include <random>
 
 #include "Game.h"
 
@@ -72,7 +73,7 @@ bool Game::validate_hint( string const& hint )
 // Prepare to play
 // Ensures solution and universe vectors are set
 // Initializes first round
-bool Game::init()
+bool Game::init(string const last_solution)
 {
 	if ( pSolutions_->size() <= 0 )
 	{
@@ -87,8 +88,22 @@ bool Game::init()
 
 	number_of_solutions_ = static_cast<int>(pSolutions_->size());
 	rounds_.clear();
-	vector<int> _solution_indices( pSolutions_->size() );
-	std::iota( _solution_indices.begin(), _solution_indices.end(), 0 );
+
+	int starting_index = 0;
+	if (last_solution != "")
+	{
+		auto it = std::find(pSolutions_->begin(), pSolutions_->end(), last_solution);
+		if (it != pSolutions_->end())
+		{
+			starting_index =static_cast<int>(it - pSolutions_->begin()) + 1;
+		}
+	}
+	vector<int> _solution_indices(pSolutions_->size() - starting_index);
+	std::iota( _solution_indices.begin(), _solution_indices.end(), starting_index);
+	std::random_device _random_device;
+	std::mt19937 _generator(_random_device());
+	std::shuffle(_solution_indices.begin(), _solution_indices.end(), _generator);
+
 	rounds_.push_back( Round( _solution_indices ) );
 
 	initialized_ = true;
@@ -138,4 +153,10 @@ std::shared_ptr<Guess> Game::find_best_guess() const
 {
 	return rounds_.back().find_best_guess();
 }
+
+double Game::evaluate_guess(string const word) const
+{
+	return rounds_.back().evaluate_guess(word);
+}
+
 
