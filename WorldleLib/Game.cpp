@@ -155,7 +155,7 @@ std::shared_ptr<Guess> Game::find_best_guess() const
 	return rounds_.back().find_best_guess();
 }
 
-double Game::evaluate_guess(string const word) const
+std::pair<double, double> Game::evaluate_guess(string const word) const
 {
 	return rounds_.back().evaluate_guess(word);
 }

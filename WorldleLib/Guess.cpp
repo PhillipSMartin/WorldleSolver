@@ -73,10 +73,18 @@ double Guess::ComputeEntropy() const
 
 double Guess::ComputeScore() const
 {
-	double _score = 1 + number_of_solutions_ / pow(2, entropy_);
-	if (is_possible_)
+	double _score = 0;
+	if (number_of_solutions_ > 0)
 	{
-		_score = std::min(_score, (number_of_solutions_ + 1) / 2);
+		for (auto item : _hint_counts)
+		{
+			_score += pow(item.second, 2) + 1;
+		}
+		if (is_possible_)
+		{
+			_score -= 1;
+		}
+		_score /= number_of_solutions_;
 	}
 
 	return _score;

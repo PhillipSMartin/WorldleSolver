@@ -140,7 +140,8 @@ void Play()
 			}
 			else
 			{
-				cout << "Guessing " << _guess << " entropy = " << game.evaluate_guess(_guess) << std::endl;
+				auto _s = game.evaluate_guess(_guess);
+				cout << "Guessing " << _guess << " entropy = " << _s.first  << " expectation = " << _s.second << std::endl;
 			}
 		}
 

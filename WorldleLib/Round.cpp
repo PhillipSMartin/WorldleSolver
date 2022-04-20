@@ -20,10 +20,10 @@ vector<int> Round::apply_hint( string const& guess, string const& hint )
 	return _new_solution_indices;
 }
 
-double Round::evaluate_guess(string const word) const
+std::pair<double, double> Round::evaluate_guess(string const word) const
 {
 	Guess g = Guess(word, pSolution_indices_);
-	return g.get_entropy();
+	return std::pair<double, double>(g.get_entropy(), g.get_score());
 }
 
 std::shared_ptr<Guess> Round::find_best_guess() const

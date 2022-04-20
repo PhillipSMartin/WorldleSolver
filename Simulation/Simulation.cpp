@@ -43,8 +43,8 @@ int Solve(string solution, string firstGuess)
 		else
 		{
 			auto _g = game.find_best_guess();
-			_guess = _g->get_guess();
-			cout << "Guessing " << _guess << " entropy = " << game.evaluate_guess(_guess) << ", expectation = " << _g->get_score() << " guesses" << std::endl;
+			auto _s = game.evaluate_guess(_g->get_guess());
+			cout << "Guessing " << _guess << " entropy = " << _s.first << ", expectation = " << _s.second << " guesses" << std::endl;
 		}
 		_number_of_guesses++;
 	}

@@ -64,7 +64,7 @@ public:
 	// Finds the best guess for current round
 	// Returns the best guess ( or nullptr on an error )
 	std::shared_ptr<Guess> find_best_guess() const;
-	double evaluate_guess(string const word) const;
+	std::pair<double, double> evaluate_guess(string const word) const;
 
 	int get_number_of_solutions() const { return number_of_solutions_;  }
 	string get_solution() const { return solution_; }
