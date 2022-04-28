@@ -98,14 +98,14 @@ bool Game::init(string const last_solution)
 			starting_index =static_cast<int>(it - pSolutions_->begin()) + 1;
 		}
 
-		std::random_device _random_device;
-		std::mt19937 _generator(_random_device());
-		std::shuffle(it+1, pSolutions_->end(), _generator);
 	}
 	vector<int> _solution_indices(pSolutions_->size() - starting_index);
 	std::iota( _solution_indices.begin(), _solution_indices.end(), starting_index);
-
 	rounds_.push_back( Round( _solution_indices ) );
+
+	std::random_device _random_device;
+	std::mt19937 _generator(_random_device());
+	std::shuffle(pUniverse_->begin(), pUniverse_->end(), _generator);
 
 	initialized_ = true;
 	return true;
