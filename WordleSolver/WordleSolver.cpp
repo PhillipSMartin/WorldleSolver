@@ -131,7 +131,7 @@ void Play()
 			{
 				auto _g = game.find_best_guess();
 				_guess = _g->get_guess();
-				cout << "Guessing " << _guess << " expectation = " << _g->get_score() << " guesses" << std::endl;
+				cout << "Guessing " << _guess << " entropy = " << _g->get_entropy() << " expectation = " << _g->get_score() << " guesses" << std::endl;
 				continue;
 			}
 			if ( !Game::validate_guess( _guess ) )
