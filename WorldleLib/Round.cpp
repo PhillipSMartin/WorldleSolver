@@ -42,7 +42,7 @@ std::shared_ptr<Guess> Round::find_best_guess() const
 			// switch criterion to score if score <= 2
 			if ((g.get_score() <= 2) || (_best_guess->get_score() <= 2))
 			{
-				if ((_best_guess->get_score() > g.get_score()) || ((!_best_guess->get_is_possible()) && g.get_is_possible() && _best_guess->get_score() == g.get_score()))
+				if ((_best_guess->get_score() > g.get_score()) || ((_best_guess->get_entropy() < g.get_entropy()) && _best_guess->get_score() == g.get_score()))
 				{
 					_best_guess = std::make_shared<Guess>(g);
 					Game::debug("Best guess  = " + word + " entropy = " + std::to_string(_best_guess->get_entropy()) + " score = " + std::to_string(_best_guess->get_score()));
