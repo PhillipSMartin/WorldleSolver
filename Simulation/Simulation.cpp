@@ -4,7 +4,7 @@
 #include <iostream>
 #include <numeric>
 
-#include "../WorldleLib/Game.h"
+#include "../WordleLib/Game.h"
 #include <algorithm>
 
 using std::cin;
