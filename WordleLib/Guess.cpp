@@ -1,6 +1,7 @@
 #include "pch.h"
 
 #include <assert.h>
+#include <cmath>
 
 #include "Game.h"
 #include "Guess.h"
@@ -64,7 +65,7 @@ double Guess::ComputeEntropy() const
 		for(auto item : _hint_counts)
 		{
 			double p = item.second / number_of_solutions_;
-			_entropy += p * -log2(p);
+			_entropy += p * -std::log2(p);
 		}
 	}
 
@@ -78,7 +79,7 @@ double Guess::ComputeScore() const
 	{
 		for (auto item : _hint_counts)
 		{
-			_score += pow(item.second, 2) + 1;
+			_score += std::pow(item.second, 2) + 1;
 		}
 		if (is_possible_)
 		{
