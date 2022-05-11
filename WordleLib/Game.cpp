@@ -96,6 +96,11 @@ bool Game::init(string const last_solution)
 		if (it != pSolutions_->end())
 		{
 			starting_index =static_cast<int>(it - pSolutions_->begin()) + 1;
+			cout << "Playing game number " << starting_index << std::endl;
+		}
+		else
+		{
+			cout << "Playing game number one" << std::endl;
 		}
 
 	}
